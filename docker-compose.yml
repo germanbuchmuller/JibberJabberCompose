@@ -31,6 +31,16 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: jibberjabber-db
 
+  followers-db-service:
+    container_name: "followers-db-service"
+    image: postgres:12
+    ports:
+      - "5437:5432"
+    environment:
+      POSTGRES_USER: sa
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: jibberjabber-db
+
   keycloak-db-service:
     container_name: "keycloak-db-service"
   
