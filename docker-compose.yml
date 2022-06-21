@@ -62,9 +62,16 @@ services:
   #    - ./static/:/usr/share/nginx/html:ro
   #    - ./conf.d:/etc/nginx/conf.d:ro
 
+  ui:
+    container_name: ui
+    image: rellumsoftware/jibberjabber-nginx-web:latest
+    ports:
+      - 9090:80
+    restart: always
+
   proxy:
     container_name: proxy
-    image: rellumsoftware/jibberjabber-nginx-web:latest
+    image: nginx
     ports:
       - 80:80
       - 443:443
