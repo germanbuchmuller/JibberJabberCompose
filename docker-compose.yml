@@ -52,12 +52,30 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: pgdb
 
+
+  #proxy:
+  #  container_name: "jibber-jabber-reverse-proxy"
+  #  image: nginx
+  #  ports:
+  #    - 80:80
+  #  volumes:
+  #    - ./static/:/usr/share/nginx/html:ro
+  #    - ./conf.d:/etc/nginx/conf.d:ro
+
   proxy:
-    container_name: "jibber-jabber-reverse-proxy"
-    image: nginx
+    container_name: proxy
+    image: rellumsoftware/jibberjabber-nginx-web:latest
     ports:
       - 80:80
+      - 443:443
+    restart: always
     volumes:
-      - ./static/:/usr/share/nginx/html:ro
-      - ./conf.d:/etc/nginx/conf.d:ro
+      - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
+
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
   
