@@ -1,6 +1,57 @@
 version: '3'
 
 services:
+
+  datadog:
+    image: datadog/agent
+    environment:
+      - DD_API_KEY=98033318c42383b0240188ec9529d7fb
+      - DD_SITE=datadoghq.com
+      - DD_LOGS_ENABLED=true
+      - DD_APM_ENABLED=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
+
+  posts-service:
+    container_name: "posts-service"
+    image: ghcr.io/agustinvon/jibberjabberpost-dev:latest
+    ports:
+      - "8080:8081"
+    environment:
+      DB_USER: sa
+      DB_PASSWORD: password
+      DB_NAME: jibberjabber-db
+      DB_HOST: posts-db-service
+      DB_PORT: 5432
+      KEYCLOAK_HOST: keycloak-service
+      KEYCLOAK_PORT: 8080
+    depends_on:
+      - posts-db-service
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "java", "service": "posts-service", "log_processing_rules": [{"type": "multi_line", "name": "log_start_with_date", "pattern" : "\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])"}]}]'
+
+
+  followers-service:
+    container_name: "followers-service"
+    image: ghcr.io/agustinvon/jibberjabberfollowers-dev:latest
+    ports:
+      - "8083:8083"
+     # - "5005:5005"
+    environment:
+      DB_USER: sa
+      DB_PASSWORD: password
+      DB_NAME: jibberjabber-db
+      DB_HOST: followers-db-service
+      DB_PORT: 5432
+      KEYCLOAK_HOST: keycloak-service
+      KEYCLOAK_PORT: 8080
+    depends_on:
+      - followers-db-service
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "java", "service": "followers-service", "log_processing_rules": [{"type": "multi_line", "name": "log_start_with_date", "pattern" : "\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])"}]}]'
+
     
   keycloak-service:
     image: quay.io/keycloak/keycloak:18.0.0
@@ -79,7 +130,7 @@ services:
     volumes:
       - ./conf.d/:/etc/nginx/conf.d/:ro
       - ./certbot/www:/var/www/certbot/:ro
-#      - ./certbot/conf/:/etc/letsencrypt/:ro
+      - ./certbot/conf/:/etc/letsencrypt/:ro
 
   certbot:
     image: certbot/certbot:latest
