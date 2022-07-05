@@ -121,7 +121,7 @@ services:
 
   ui:
     container_name: ui
-    image: rellumsoftware/jibberjabber-web:latest
+    image: ghcr.io/germanbuchmuller/jibber-jabber-base-ui-prod:latest
     ports:
       - 9090:80
     restart: always
