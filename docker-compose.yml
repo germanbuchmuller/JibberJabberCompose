@@ -5,7 +5,7 @@ services:
   datadog:
     image: datadog/agent
     environment:
-      - DD_API_KEY=98033318c42383b0240188ec9529d7fb
+      - DD_API_KEY=${DATADOG_API_KEY}
       - DD_SITE=datadoghq.com
       - DD_LOGS_ENABLED=true
       - DD_APM_ENABLED=true
@@ -31,7 +31,7 @@ services:
       ADMIN_PASSWORD: admin
       FOLLOWERS_HOST: followers-service
       FOLLOWERS_PORT: 8083
-      DD_API_KEY: 98033318c42383b0240188ec9529d7fb
+      DD_API_KEY: ${DATADOG_API_KEY}
     depends_on:
       - posts-db-service
     labels:
@@ -52,7 +52,7 @@ services:
       DB_PORT: 5432
       KEYCLOAK_HOST: keycloak-service
       KEYCLOAK_PORT: 8080
-      DD_API_KEY: 98033318c42383b0240188ec9529d7fb
+      DD_API_KEY: ${DATADOG_API_KEY}
     depends_on:
       - followers-db-service
     labels:
