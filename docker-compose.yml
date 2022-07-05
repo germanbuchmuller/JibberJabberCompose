@@ -16,7 +16,7 @@ services:
 
   posts-service:
     container_name: "posts-service"
-    image: ghcr.io/agustinvon/jibberjabberpost-${ENV_TAG}:latest
+    image: ghcr.io/agustinvon/jibberjabberpost-dev:latest
     ports:
       - "8080:8081"
     environment:
@@ -39,7 +39,7 @@ services:
 
   followers-service:
     container_name: "followers-service"
-    image: ghcr.io/agustinvon/jibberjabberfollowers-${ENV_TAG}:latest
+    image: ghcr.io/agustinvon/jibberjabberfollowers-dev:latest
     ports:
       - "8083:8083"
      # - "5005:5005"
@@ -63,8 +63,6 @@ services:
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
-      - KC_HOSTNAME=jibberjabber.rellum.com.ar
-      - KC_HOSTNAME_ADMIN=jibberjabber.rellum.com.ar
       - KC_DB=postgres
       - KC_DB_URL_HOST=keycloak-db-service
       - KC_DB_URL_DATABASE=pgdb
