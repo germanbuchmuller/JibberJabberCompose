@@ -121,7 +121,7 @@ services:
 
   ui:
     container_name: ui
-    image: rellumsoftware/jibberjabber-nginx-web:latest
+    image: rellumsoftware/jibberjabber-web:latest
     ports:
       - 9090:80
     restart: always
