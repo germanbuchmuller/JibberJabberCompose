@@ -16,7 +16,7 @@ services:
 
   posts-service:
     container_name: "posts-service"
-    image: ghcr.io/agustinvon/jibberjabberpost-dev:latest
+    image: ghcr.io/agustinvon/jibberjabberpost-${ENV_TAG}:latest
     ports:
       - "8080:8081"
     environment:
@@ -39,7 +39,7 @@ services:
 
   followers-service:
     container_name: "followers-service"
-    image: ghcr.io/agustinvon/jibberjabberfollowers-dev:latest
+    image: ghcr.io/agustinvon/jibberjabberfollowers-${ENV_TAG}:latest
     ports:
       - "8083:8083"
      # - "5005:5005"
