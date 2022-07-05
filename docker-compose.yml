@@ -27,7 +27,8 @@ services:
       DB_PORT: 5432
       KEYCLOAK_HOST: keycloak-service
       KEYCLOAK_PORT: 8080
-      CLIENT_SECRET: GvHtIkSO7oA8j70F3ejdQOI6RXcBbobS
+      ADMIN_USERNAME: super-admin
+      ADMIN_PASSWORD: admin
       FOLLOWERS_HOST: followers-service
       FOLLOWERS_PORT: 8083
     depends_on:
