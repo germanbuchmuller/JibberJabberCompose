@@ -64,6 +64,8 @@ services:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
       - KC_DB=postgres
+      - KC_HOSTNAME=jibberjabber-dev.rellum.com.ar
+      - KC_HOSTNAME_ADMIN=jibberjabber-dev.rellum.com.ar
       - KC_DB_URL_HOST=keycloak-db-service
       - KC_DB_URL_DATABASE=pgdb
       - KC_DB_USERNAME=sa
