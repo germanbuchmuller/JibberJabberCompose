@@ -43,7 +43,6 @@ services:
     image: ghcr.io/agustinvon/jibberjabberfollowers-${ENV_TAG}:latest
     ports:
       - "8083:8083"
-     # - "5005:5005"
     environment:
       DB_USER: sa
       DB_PASSWORD: password
@@ -108,16 +107,6 @@ services:
       POSTGRES_USER: sa
       POSTGRES_PASSWORD: password
       POSTGRES_DB: pgdb
-
-
-  #proxy:
-  #  container_name: "jibber-jabber-reverse-proxy"
-  #  image: nginx
-  #  ports:
-  #    - 80:80
-  #  volumes:
-  #    - ./static/:/usr/share/nginx/html:ro
-  #    - ./conf.d:/etc/nginx/conf.d:ro
 
   ui:
     container_name: ui
